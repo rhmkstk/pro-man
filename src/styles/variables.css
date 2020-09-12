@@ -1,0 +1,16 @@
+:root{
+  --c-bg: #485460;
+  --c-default: rgba(0, 0, 0, 0.3);
+  --c-dark: rgba(0, 0, 0, 0.4);
+
+  --c-text: #d2dae2;
+  --c-add: #0be881;
+  --c-danger: #f53b57;
+  --c-warning: #ffd32a;
+  --c-highlight: #42ffcc;
+
+  --fs-title: 1.25rem;
+  --fs-big: 1.37rem;
+
+  --fw-bold: 600;
+}
