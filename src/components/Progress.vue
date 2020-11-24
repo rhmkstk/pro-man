@@ -1,11 +1,44 @@
 <template>
-  <div class="container">
-    <label class="bar done"> <span class="percent">%</span> 30 </label>
-    <label class="bar inProgress"> <span class="percent">%</span> 20 </label>
+  <div class="progressContainer">
+    <label
+      class="bar done"
+      :class="radiusClasses.done"
+      :style="{ width: `${prog.completed}%` }"
+    >
+      <span class="percent">%{{ prog.completed }}</span>
+    </label>
+    <label
+      class="bar inProgress"
+      :class="radiusClasses.inProg"
+      :style="{ width: `${prog.inProgress}%` }"
+    >
+      <span class="percent">%{{ prog.inProgress }}</span>
+    </label>
   </div>
 </template>
+<script>
+export default {
+  name: 'Progress',
+  props: {
+    prog: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    radiusClasses() {
+      const completed = parseInt(this.prog.completed)
+      const inProgress = parseInt(this.prog.inProgress)
+      if (completed && inProgress)
+        return { done: 'coupleDone', inProg: 'coupleInProgress' }
+      if (completed && !inProgress) return { done: 'single', inProg: '' }
+      if (!completed && inProgress) return { done: '', inProg: 'single' }
+    }
+  }
+}
+</script>
 <style scoped>
-.container {
+.progressContainer {
   height: 15px;
   position: relative;
   background: var(--c-dark);
