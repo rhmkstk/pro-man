@@ -1,19 +1,25 @@
 <template>
   <div id="app">
-    <HelloWorld/>
+    <!-- <HandleWorkspaces /> -->
+    <!-- <Header />
+    <Workspace /> -->
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header'
+import HandleWorkspaces from './components/HandleWorkspaces'
+import Workspace from './components/Workspace'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Header,
+    Workspace,
+    HandleWorkspaces
   }
 }
 </script>
 
-<style>
-</style>
+<style></style>
