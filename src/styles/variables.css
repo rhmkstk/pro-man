@@ -3,8 +3,9 @@
   --c-default: rgba(0, 0, 0, 0.3);
   --c-dark: rgba(0, 0, 0, 0.6);
 
+  --c-light: #fff;
   --c-text: #d2dae2;
-  --c-add: #0be881;
+  --c-add: #12D469;
   --c-danger: #f53b57;
   --c-warning: #ffd32a;
   --c-primary: #0fbcf9;

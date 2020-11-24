@@ -22,6 +22,8 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-size: 1rem;
   font-weight: normal;
+  background: var(--c-bg);
+  letter-spacing: 1px;
 }
 a {
   color: inherit;
@@ -31,6 +33,7 @@ a {
 button {
   background-color: transparent;
   cursor: pointer;
+  outline: none;
 }
 
 h1,
