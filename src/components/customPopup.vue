@@ -34,7 +34,7 @@ export default {
   transition: 300ms all;
 }
 .popup > :first-child{
-  padding: 40px 30px;
+  padding: 45px;
   position: absolute;
   background: var(--c-bg);
   display: flex;
