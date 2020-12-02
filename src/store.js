@@ -57,25 +57,56 @@ const actions = {
     })
   },
   // CARD TRANSACTİONS
-  getTasks({state},dispatch){
-    service.getCards({key: state.activeWsKey}).then(response => {
+  getTasks({ state }, dispatch) {
+    service.getCards({ key: state.activeWsKey }).then(response => {
       const data = response.data
-      const tasks = []
-      for(let key in data){
-        data[key].key = key
-        tasks.push(data[key])
-      }
-      state.tasks = tasks
-      
+      data.map(item => {
+        let cards = []
+        for (let key in item.cards) {
+          if (key.length > 2) {
+            item.cards[key].key = key
+            cards.push(item.cards[key])
+          } else {
+            cards.push(item.cards[key])
+          }
+        }
+        const sortedCards = cards.sort((a, b) =>
+          a.order > b.order ? 1 : b.order > a.order ? -1 : 0
+        )
+        item.cards = sortedCards
+        cards = []
+      })
+      state.tasks = data
     })
   },
-  addNewCard({state,dispatch},card){
+  addNewCard({ state, dispatch }, card) {
     service.addNewCard(card).then(response => {
-      console.log(response);
-      console.log(state.workspaces)
+      state.tasks[card.i].cards.push({
+        ...card.newCard,
+        key: response.data.name
+      })
     })
   },
-
+  deleteCard({ state, dispatch }, infos) {
+    service.deleteCard(infos).then(() => {
+      if(infos.updateTasks) {
+        const index = state.tasks[infos.stage].cards.findIndex(c => c.key == infos.cardKey)
+        state.tasks[infos.stage].cards.splice(index,1)
+      }
+    })
+  },
+  moveCard({ state, dispatch }, infos) {
+    service.moveCard(infos).then(response => {
+      state.tasks[infos.stage].cards.map(c => {
+        if (c.key == infos.key) {
+          c.key = response.data.name
+        }
+      })
+    })
+  },
+  updateCardInfos({ state, dispatch }, infos) {
+    service.updateCardInfos(infos)
+  },
 }
 const store = new Vuex.Store({
   state,
