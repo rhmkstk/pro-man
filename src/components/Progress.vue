@@ -33,6 +33,8 @@ export default {
         return { done: 'coupleDone', inProg: 'coupleInProgress' }
       if (completed && !inProgress) return { done: 'single', inProg: '' }
       if (!completed && inProgress) return { done: '', inProg: 'single' }
+      return { done: '', inProg: '' }
+
     }
   }
 }
