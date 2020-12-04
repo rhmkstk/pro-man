@@ -49,3 +49,18 @@ label {
 ol, ul,li {
   list-style: none;
 }
+.red {
+  background: var(--c-danger);
+}
+.yellow {
+  background: var(--c-warning);
+}
+.blue {
+  background: var(--c-primary);
+}
+.green {
+  background: var(--c-add);
+}
+.gray {
+  background: var(--c-text);
+}
