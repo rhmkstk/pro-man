@@ -3,17 +3,17 @@
     <section class="listHeader">
       <span>{{ item.name }}</span>
       <section class="listIcons">
-        <IconAdd class="listIcon add" @click="startAdding" />
+        <IconAdd class="listIcon add" @click="startAdding(item)" />
         <IconMore class="listIcon more" />
       </section>
     </section>
     <section class="addingNewItem" v-if="item.add">
-      <!-- ref="newItemInput" -->
-      <input 
-        type="text" 
+      <input
+        type="text"
+        ref="newItemInput"
         v-model="newCard"
         v-on:input="sendInputValue"
-        @keyup.enter="addNewCard" 
+        @keyup.enter="addNewCard"
       />
       <button @click="addNewCard" class="newItemAddBtn">
         <IconAdd />
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import IconAdd from './icons/add.svg'
-import IconMore from './icons/more.svg'
+import IconAdd from '@/components/icons/add.svg'
+import IconMore from '@/components/icons/more.svg'
 export default {
   name: 'CardContainer',
   components: {
@@ -40,7 +40,7 @@ export default {
       type: Number,
       required: true
     },
-    newCardText:{
+    newCardText: {
       type: String
     }
   },
@@ -50,14 +50,19 @@ export default {
     }
   },
   methods: {
-    startAdding() {
+    startAdding(item) {
+      if (!item.add) {
+        setTimeout(() => {
+          this.$refs.newItemInput.focus()
+        }, 100)
+      }
       this.$emit('startAdding')
     },
     addNewCard() {
       this.$emit('addNewCard')
       this.newCard = ''
     },
-    sendInputValue(){
+    sendInputValue() {
       this.$emit('input', this.newCard)
     }
   }
