@@ -4,11 +4,9 @@ import axios from 'axios'
 const userId = localStorage.getItem("userId") || "";
 const BaseURL = `https://takenote-d0374.firebaseio.com/`
 axios.defaults.baseURL = `${BaseURL}${userId}`
-// const BaseURL = 'https://takenote-d0374.firebaseio.com/user2/workspaces'
 
 export default {
   setBaseURL(userId){
-    const urrl = `${BaseURL}${userId}`
     axios.defaults.baseURL = `${BaseURL}${userId}`
   },
   signIn(info) {
@@ -19,11 +17,9 @@ export default {
     })
   },
   saveNewWorkspace(ws) {
-    // const URL = `${BaseURL}.json`
     return axios.post('.json', ws)
   },
   getWorkspaces() {
-    // const URL = `${BaseURL}.json`
     return axios.get('.json')
   },
   deleteWorkspace(key) {
