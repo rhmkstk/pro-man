@@ -84,11 +84,12 @@
 import { mapGetters } from 'vuex'
 
 import Draggable from 'vuedraggable'
-import CustomPopup from '@/components/CustomPopup'
+
+import CustomPopup from '../components/CustomPopup'
 import Card from '@/components/Card'
 import CardContainer from '@/components/CardContainer'
-
 import Progress from '@/components/Progress'
+
 import IconGarbage from '@/components/icons/garbage.svg'
 import IconPin from '@/components/icons/pin.svg'
 import IconX from '@/components/icons/x.svg'
