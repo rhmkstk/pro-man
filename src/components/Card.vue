@@ -13,8 +13,8 @@
   </div>
 </template>
 <script>
-import IconEdit from './icons/edit.svg'
-import IconPinRotate from './icons/pinRotate.svg'
+import IconEdit from '@/components/icons/edit.svg'
+import IconPinRotate from '@/components/icons/pinRotate.svg'
 export default {
   name: 'Card',
   components:{
@@ -82,19 +82,5 @@ export default {
   display: inline-block;
 }
 
-.red {
-  background: var(--c-danger);
-}
-.yellow {
-  background: var(--c-warning);
-}
-.blue {
-  background: var(--c-primary);
-}
-.green {
-  background: var(--c-add);
-}
-.gray {
-  background: var(--c-text);
-}
+
 </style>
