@@ -7,12 +7,12 @@
       v-if="isRouteWorkspace"
     />
     <span class="activeWs">{{ activeWorkspaceName }}</span>
-    <button>LOGOUT</button>
+    <button @click="logout">LOGOUT</button>
   </header>
 </template>
 
 <script>
-import IconArrowLeftRound from './icons/arrowLeftRound.svg'
+import IconArrowLeftRound from '@/components/icons/arrowLeftRound.svg'
 
 export default {
   name: 'Header',
@@ -22,6 +22,9 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1)
+    },
+    logout(){
+      this.$store.dispatch('logout')
     }
   },
   computed: {
