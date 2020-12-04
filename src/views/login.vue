@@ -49,6 +49,8 @@ export default {
         return
       }
       this.$store.dispatch('signIn', this.authInfo)
+      this.authInfo.user.email = ''
+      this.authInfo.user.password = ''
     }
   },
   computed: {
