@@ -1,20 +1,69 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import service from './service'
+import router from './router.js'
 
 Vue.use(Vuex)
 
 const state = {
-  workspaces: [],
+  fbapikey: 'AIzaSyBNvrRFUiooJpIZYFvsCVdBUbLmmos3NQY',
+  token: localStorage.getItem('token') || '',
+  authMessage: {
+    message: '',
+    error: false
+  },
   activeWsKey: localStorage.getItem('activeKey'),
-  tasks: []
+  tasks: [],
+  workspaces: []
 }
 const getters = {
   getWorkspaces: state => state.workspaces,
-  getTasks: state => state.tasks
+  getTasks: state => state.tasks,
+  getAuthMessage: state => state.authMessage,
+  isUserExist: state => !!state.token
 }
 const mutations = {}
 const actions = {
+  signIn({ state, dispatch }, authInfo) {
+    let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${state.fbapikey}`
+    authInfo.link = authLink
+    service
+      .signIn(authInfo)
+      .then(() => {
+        const message = 'Registration is successful! You can login to start'
+        state.authMessage.error = false
+        state.authMessage.message = message
+      })
+      .catch(err => {
+        state.authMessage.error = true
+        state.authMessage.message = err.response.data.error.message
+      })
+  },
+  login({ state, dispatch }, authInfo) {
+    let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${state.fbapikey}`
+    authInfo.link = authLink
+    service
+      .signIn(authInfo)
+      .then(response => {
+        const token = response.data.idToken
+        const id = response.data.localId
+        state.token = token
+        localStorage.setItem('token', token)
+        localStorage.setItem('userId', id)
+        service.setBaseURL(id)
+        router.push({ name: 'HandleWorkspaces' })
+      })
+      .catch(err => {
+        state.authMessage.error = true
+        state.authMessage.message = err.response.data.error.message
+      })
+  },
+  logout({ state, dispatch }) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    state.token = ''
+    router.push({ name: 'Login' })
+  },
   getWorkspaces({ state, dispatch }) {
     service.getWorkspaces().then(response => {
       const data = response.data
@@ -23,17 +72,7 @@ const actions = {
         data[key].key = key
         workspaces.push(data[key])
       }
-      // workspaces.map(ws => {
-      //   let cards = []
-      //   for(let key in ws.cards){
-      //     ws.cards[key].key = key
-      //     cards.push(ws.cards[key])
-      //   }
-      //   ws.cards = cards;
-      //   cards = []
-      // })
       state.workspaces = workspaces
-      console.log(state.workspaces)
     })
   },
   saveNewWorkspace({ state, dispatch }, workspace) {
@@ -49,16 +88,22 @@ const actions = {
     })
   },
   editWorkspace({ state, dispatch }, editedWorkspace) {
-    return service.editWorkspace(editedWorkspace).then(response => {
+    return service.editWorkspace(editedWorkspace).then(() => {
       state.workspaces.map((item, i) => {
-        if (item.key == editedWorkspace.key)
+        if (item.key == editedWorkspace.key) {
           state.workspaces[i].name = editedWorkspace.name
+          state.workspaces[i].path = editedWorkspace.path
+        }
       })
     })
   },
   // CARD TRANSACTİONS
   getTasks({ state }, dispatch) {
     service.getCards({ key: state.activeWsKey }).then(response => {
+      if (response.data == null) {
+        state.tasks = []
+        return
+      }
       const data = response.data
       data.map(item => {
         let cards = []
@@ -89,9 +134,11 @@ const actions = {
   },
   deleteCard({ state, dispatch }, infos) {
     service.deleteCard(infos).then(() => {
-      if(infos.updateTasks) {
-        const index = state.tasks[infos.stage].cards.findIndex(c => c.key == infos.cardKey)
-        state.tasks[infos.stage].cards.splice(index,1)
+      if (infos.updateTasks) {
+        const index = state.tasks[infos.stage].cards.findIndex(
+          c => c.key == infos.cardKey
+        )
+        state.tasks[infos.stage].cards.splice(index, 1)
       }
     })
   },
@@ -106,7 +153,7 @@ const actions = {
   },
   updateCardInfos({ state, dispatch }, infos) {
     service.updateCardInfos(infos)
-  },
+  }
 }
 const store = new Vuex.Store({
   state,
