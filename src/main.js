@@ -6,7 +6,7 @@ import store from './store'
 
 import './styles/app.css'
 
-Vue.config.productionTip = true
+Vue.config.productionTip = false
 
 new Vue({
   store,
