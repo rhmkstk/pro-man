@@ -1,24 +1,8 @@
-# pro-man
+# Pro-man
+ Pro-man is a basic project manager
+    https://pro-man.vercel.app
 
-## Project setup
-```
-npm install
-```
+### To run on local
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    $ npm install
+    $ npm run dev
