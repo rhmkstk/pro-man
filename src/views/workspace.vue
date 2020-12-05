@@ -85,7 +85,7 @@ import { mapGetters } from 'vuex'
 
 import Draggable from 'vuedraggable'
 
-import CustomPopup from '@/components/Custompopup.vue'
+import CustomPopup from '@/components/Popup.vue'
 import Card from '@/components/Card'
 import CardContainer from '@/components/CardContainer'
 import Progress from '@/components/Progress'
@@ -284,7 +284,6 @@ export default {
         animation: "220",
         group: "cards",
         disabled: false
-
       }
     }
   },
