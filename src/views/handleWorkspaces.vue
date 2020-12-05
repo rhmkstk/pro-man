@@ -78,7 +78,6 @@ import IconEdit from '@/components/icons/edit.svg'
 import IconX from '@/components/icons/x.svg'
 import CustomPopup from '@/components/Popup.vue'
 
-
 export default {
   name: 'Header',
   components: {
@@ -197,7 +196,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped="true">
 .handle {
-  /* padding: 100px; */
   padding: 70px 100px;
   display: flex;
   height: calc(100vh - 70px);

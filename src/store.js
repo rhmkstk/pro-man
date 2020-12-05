@@ -24,7 +24,7 @@ const getters = {
 }
 const mutations = {}
 const actions = {
-  signIn({ state, dispatch }, authInfo) {
+  signIn({ state }, authInfo) {
     let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${state.fbapikey}`
     authInfo.link = authLink
     service
@@ -98,7 +98,7 @@ const actions = {
     })
   },
   // CARD TRANSACTİONS
-  getTasks({ state }, dispatch) {
+  getTasks({ state }) {
     service.getCards({ key: state.activeWsKey }).then(response => {
       if (response.data == null) {
         state.tasks = []
@@ -151,7 +151,7 @@ const actions = {
       })
     })
   },
-  updateCardInfos({ state, dispatch }, infos) {
+  updateCardInfos({dispatch }, infos) {
     service.updateCardInfos(infos)
   }
 }

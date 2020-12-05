@@ -1,6 +1,4 @@
 module.exports = {
   sourceType: 'unambiguous',
-  presets: ["@vue/app"]
-  
-  
+  presets: ['@vue/app']
 }
