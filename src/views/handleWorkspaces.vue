@@ -76,7 +76,7 @@ import IconMore from '@/components/icons/more.svg'
 import IconDelete from '@/components/icons/garbage.svg'
 import IconEdit from '@/components/icons/edit.svg'
 import IconX from '@/components/icons/x.svg'
-import CustomPopup from '@/components/Custompopup'
+import CustomPopup from '@/components/Custompopup.vue'
 
 
 export default {
