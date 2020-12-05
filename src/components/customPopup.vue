@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'customPopup',
+  name: 'CustomPopup',
   props: {
     isPopupShow:{
       type: Boolean,
