@@ -76,7 +76,7 @@ import IconMore from '@/components/icons/more.svg'
 import IconDelete from '@/components/icons/garbage.svg'
 import IconEdit from '@/components/icons/edit.svg'
 import IconX from '@/components/icons/x.svg'
-import CustomPopup from '@/components/Popup.vue'
+import CustomPopup from '@/components/CustomPopup.vue'
 
 export default {
   name: 'Header',
