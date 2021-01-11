@@ -3,13 +3,18 @@
     <span class="cardIcon" @click="startEditingCard">
       <IconEdit />
     </span>
-    <span class="cardPinnedIcon" v-if="pin">
+    <span class="cardPinnedIcon" v-if="pin" @click="clearPin">
       <IconPinRotate stroke="#485460" />
     </span>
     <span class="cardText">
       {{ text }}
     </span>
-    <span v-if="tag.is" class="cardTag" :class="tag.class"></span>
+    <span
+      v-if="tag.is"
+      class="cardTag"
+      :class="tag.class"
+      @click="clearTag"
+    ></span>
   </div>
 </template>
 <script>
@@ -17,28 +22,33 @@ import IconEdit from '@/components/icons/edit.svg'
 import IconPinRotate from '@/components/icons/pinRotate.svg'
 export default {
   name: 'Card',
-  components:{
+  components: {
     IconEdit,
     IconPinRotate
-
   },
-  props:{
-    text:{
+  props: {
+    text: {
       type: String,
       required: true
     },
-    tag:{
+    tag: {
       type: Object,
       required: true
     },
-    pin:{
+    pin: {
       type: Boolean,
       required: true
-    },
+    }
   },
-  methods:{
-    startEditingCard(){
-      this.$emit("startEditingCard");
+  methods: {
+    startEditingCard() {
+      this.$emit('startEditingCard')
+    },
+    clearTag() {
+      this.$emit('clearTag')
+    },
+    clearPin() {
+      this.$emit('clearPin')
     }
   }
 }
@@ -80,7 +90,6 @@ export default {
   height: 8px;
   border-radius: 99px;
   display: inline-block;
+  cursor: pointer;
 }
-
-
 </style>
