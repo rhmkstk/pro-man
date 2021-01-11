@@ -2,7 +2,7 @@
   <div>
     <Progress :prog="calcProgresses" />
     <div class="worksaceContent">
-      <div class="listWrapper">
+      <div>
         <Draggable :disabled="true" class="listWrapper">
           <div
             class="listContainer"
@@ -85,7 +85,7 @@ import { mapGetters } from 'vuex'
 
 import Draggable from 'vuedraggable'
 
-import CustomPopup from '@/components/Popup.vue'
+import CustomPopup from '@/components/CustomPopup.vue'
 import Card from '@/components/Card'
 import CardContainer from '@/components/CardContainer'
 import Progress from '@/components/Progress'
@@ -299,14 +299,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .worksaceContent {
-  padding: 30px 100px;
   display: flex;
   justify-content: center;
 }
 .listWrapper {
-  width: 55vw;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 4vw;
+  margin-top: 4vh;
 }
 .listContainer {
   background: var(--c-default);
@@ -322,7 +322,6 @@ export default {
 .cardTransactionItem {
   position: absolute;
   right: 0;
-  /* top: calc(100% + 10px); */
   top: 100%;
   color: #fff;
   background: var(--c-bg);
