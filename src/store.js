@@ -6,7 +6,7 @@ import router from './router.js'
 Vue.use(Vuex)
 
 const state = {
-  fbapikey: 'AIzaSyBNvrRFUiooJpIZYFvsCVdBUbLmmos3NQY',
+  apikey: 'AIzaSyBNvrRFUiooJpIZYFvsCVdBUbLmmos3NQY',
   token: localStorage.getItem('token') || '',
   authMessage: {
     message: '',
@@ -25,7 +25,7 @@ const getters = {
 const mutations = {}
 const actions = {
   signIn({ state }, authInfo) {
-    let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${state.fbapikey}`
+    let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${state.apikey}`
     authInfo.link = authLink
     service
       .signIn(authInfo)
@@ -40,7 +40,7 @@ const actions = {
       })
   },
   login({ state, dispatch }, authInfo) {
-    let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${state.fbapikey}`
+    let authLink = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${state.apikey}`
     authInfo.link = authLink
     service
       .signIn(authInfo)
