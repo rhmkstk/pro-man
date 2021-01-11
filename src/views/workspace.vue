@@ -9,13 +9,13 @@
             v-for="(item, index) in getTasks"
             :key="index"
           >
-          <CardContainer 
-            :item="item"
-            :index="index"
-            @startAdding="startAdding(item)"
-            @addNewCard="addNewCard(index)"
-            @input="takeInputValue"
-          />
+            <CardContainer
+              :item="item"
+              :index="index"
+              @startAdding="startAdding(item)"
+              @addNewCard="addNewCard(index)"
+              @input="takeInputValue"
+            />
             <Draggable
               :list="item.cards"
               v-bind="dragOptions"
@@ -29,11 +29,14 @@
                 v-for="card in item.cards"
                 :key="card.id"
               >
-                <Card 
+                <Card
                   :text="card.text"
                   :tag="card.tag"
                   :pin="card.pin"
-                  @startEditingCard="startEditingCard(card)" />
+                  @startEditingCard="startEditingCard(card)"
+                  @clearTag="clearTag(card)"
+                  @clearPin="clearPin(card)"
+                />
               </section>
             </Draggable>
           </div>
@@ -106,8 +109,7 @@ export default {
     IconGarbage,
     IconPin,
     IconX,
-    IconTag,
-    
+    IconTag
   },
   data() {
     return {
@@ -144,7 +146,7 @@ export default {
     }
   },
   methods: {
-    takeInputValue(val){
+    takeInputValue(val) {
       this.newCardText = val
     },
     addNewCard(index) {
@@ -218,10 +220,7 @@ export default {
       this.isItemEditing = !this.isItemEditing
       card.edit = !card.edit
       this.editCardText = card.text
-      this.selectedCard.card = card
-      this.selectedCard.stage = this.findStageOfMovedItem(card.key)
-      this.selectedCard.activeWsKey = this.$store.state.activeWsKey
-      this.selectedCard.cardKey = card.key
+      this.setSelectedCard(card);
     },
     deleteCard() {
       this.selectedCard.updateTasks = true
@@ -233,6 +232,22 @@ export default {
       this.$store.dispatch('updateCardInfos', this.selectedCard)
       this.isItemEditing = false
       this.isTagsActive = false
+    },
+    clearTag(card) {
+      card.tag = { is: false, class: '' }
+      this.setSelectedCard(card);
+      this.$store.dispatch('updateCardInfos', this.selectedCard)
+    },
+    clearPin(card) {
+      card.pin = false
+      this.setSelectedCard(card);
+      this.$store.dispatch('updateCardInfos', this.selectedCard)
+    },
+    setSelectedCard(card) {
+      this.selectedCard.card = card
+      this.selectedCard.stage = this.findStageOfMovedItem(card.key)
+      this.selectedCard.activeWsKey = this.$store.state.activeWsKey
+      this.selectedCard.cardKey = card.key
     },
     editCard() {
       if (this.editCardText != this.selectedCard.card.text) {
@@ -278,11 +293,11 @@ export default {
     showPrevStage() {
       return this.prevStage == 'To Do' ? 0 : this.prevStage == 'Done' ? 2 : 1
     },
-    dragOptions(){
+    dragOptions() {
       return {
-        ghostClass: "ghost",
-        animation: "220",
-        group: "cards",
+        ghostClass: 'ghost',
+        animation: '220',
+        group: 'cards',
         disabled: false
       }
     }
@@ -304,7 +319,7 @@ export default {
 }
 .listWrapper {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 4vw;
   margin-top: 4vh;
 }
@@ -439,6 +454,4 @@ export default {
   visibility: visible;
   opacity: 1;
 }
-
-
 </style>
