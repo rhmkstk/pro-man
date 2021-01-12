@@ -46,7 +46,7 @@
       <div class="popupContent">
         <IconX class="iconClose" @click="closeDeletePopup" />
         <span class="deleteWarning"
-          >Are you sure to delete {{this.selectedWorkspace.name}} ?
+          >Are you sure to delete {{ this.selectedWorkspace.name }} ?
         </span>
         <button class="btn deleteBtn" @click="deleteWorkspace">Delete</button>
       </div>
@@ -129,17 +129,20 @@ export default {
       this.addingPopup = true
     },
     addNewWorkspace() {
-      this.$store.dispatch('saveNewWorkspace', {
-        name: this.name,
-        path: `/workspace/${this.costumEncodeURI(this.name)}`,
-        tasks: [
-          { name: 'To Do', add: false },
-          { name: 'In Progress', add: false },
-          { name: 'Done', add: false }
-        ]
-      })
-      this.addingPopup = false
-      this.name = ''
+      if (this.name) {
+        this.$store.dispatch('saveNewWorkspace', {
+          name: this.name,
+          path: `/workspace/${this.costumEncodeURI(this.name)}`,
+          tasks: [
+            { name: 'To Do', add: false },
+            { name: 'In Progress', add: false },
+            { name: 'Done', add: false }
+          ]
+        })
+
+        this.addingPopup = false
+        this.name = ''
+      }
     },
     closePopup() {
       this.addingPopup = false
@@ -164,7 +167,7 @@ export default {
       const editedWorkspace = {
         ...this.selectedWorkspace,
         name: this.editTitle,
-        path: `/workspace/${this.costumEncodeURI(this.editTitle)}`,
+        path: `/workspace/${this.costumEncodeURI(this.editTitle)}`
       }
       this.$store.dispatch('editWorkspace', editedWorkspace)
       this.editingPopup = false
@@ -266,7 +269,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  visibility:hidden;
+  visibility: hidden;
 }
 .icon {
   background: var(--c-dark);
