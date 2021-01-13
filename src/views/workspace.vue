@@ -11,7 +11,6 @@
           >
             <CardContainer
               :item="item"
-              :index="index"
               @startAdding="startAdding(item)"
               @addNewCard="addNewCard(index)"
               @input="takeInputValue"

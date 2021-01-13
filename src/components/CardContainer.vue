@@ -35,13 +35,6 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    index: {
-      type: Number,
-      required: true
-    },
-    newCardText: {
-      type: String
     }
   },
   data() {
